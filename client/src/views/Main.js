@@ -13,16 +13,18 @@ export default () => {
             .then(response => {setProducts(response.data.products)})
             .catch(err => console.log(err));
             setLoaded(true);
-    },[products])
+    },[products]);
+
+    const removeFromDom = productId => {
+        setProducts(products.filter(product => product._id != productId));
+    }
 
     return (
         <div className="py-5">
             <h1>Product Manager</h1>
             <ProductForm/>
             <hr/>
-            {loaded && <ProductList products={products}/>}
-            
-            
+            {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
         </div>
     )
 }
