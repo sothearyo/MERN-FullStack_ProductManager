@@ -15,16 +15,19 @@ export default () => {
             setLoaded(true);
     },[products]);
 
-    const removeFromDom = productId => {
-        setProducts(products.filter(product => product._id != productId));
+    const createProduct = product => {
+        axios.post('http://localhost:8000/api/product/new', product)
+            .then(res => {
+                setProducts([...products, res.data]);
+            })
     }
 
     return (
         <div className="py-5">
             <h1>Product Manager</h1>
-            <ProductForm/>
+            <ProductForm onSubmitProp={createProduct} initialTitle="" intialPrice="" intialDescription=""/>
             <hr/>
-            {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
+            {loaded && <ProductList/>}
         </div>
     )
 }
