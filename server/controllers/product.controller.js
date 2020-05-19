@@ -15,7 +15,7 @@ module.exports.createProduct = (request, response) => {
         description
     })
         .then(product => response.json(product))
-        .catch(err => response.json(err));
+        .catch(err => response.status(400).json(err));
 };
 
 // Read all products -----------
